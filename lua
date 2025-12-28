@@ -132,3 +132,86 @@ MainTab:Button({
         end
     end
 })
+
+-- ========================================
+-- WalkSpeed (Persist after death)
+-- ========================================
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local WalkSpeedValue = 16
+
+local function applyWalkSpeed(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = WalkSpeedValue
+end
+
+-- ตัวละครปัจจุบัน
+if LocalPlayer.Character then
+    applyWalkSpeed(LocalPlayer.Character)
+end
+
+-- เกิดใหม่หลังตาย
+LocalPlayer.CharacterAdded:Connect(function(character)
+    applyWalkSpeed(character)
+end)
+
+-- Slider
+PlayerTab:Slider({
+    Title = "WalkSpeed",
+    Step = 1,
+    Value = {
+        Min = 16,
+        Max = 200,
+        Default = WalkSpeedValue
+    },
+    Callback = function(v)
+        WalkSpeedValue = v
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+            LocalPlayer.Character.Humanoid.WalkSpeed = v
+        end
+    end
+})
+
+-- ========================================
+-- JumpPower (Persist after death)
+-- ========================================
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local JumpPowerValue = 50 -- ค่าเริ่มต้น Roblox
+
+local function applyJumpPower(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.UseJumpPower = true
+    humanoid.JumpPower = JumpPowerValue
+end
+
+-- ตัวละครปัจจุบัน
+if LocalPlayer.Character then
+    applyJumpPower(LocalPlayer.Character)
+end
+
+-- ตาย / เกิดใหม่
+LocalPlayer.CharacterAdded:Connect(function(character)
+    applyJumpPower(character)
+end)
+
+-- Slider
+PlayerTab:Slider({
+    Title = "JumpPower",
+    Step = 1,
+    Value = {
+        Min = 50,
+        Max = 300,
+        Default = JumpPowerValue
+    },
+    Callback = function(v)
+        JumpPowerValue = v
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+            local humanoid = LocalPlayer.Character.Humanoid
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = v
+        end
+    end
+})
