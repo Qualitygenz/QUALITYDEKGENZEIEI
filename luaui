@@ -133,6 +133,14 @@ MainTab:Button({
     end
 })
 
+local PlayerTab =
+    Window:Tab(
+    {
+        Title = "Player",
+        Icon = "user"
+    }
+)
+
 -- ========================================
 -- WalkSpeed (Persist after death)
 -- ========================================
