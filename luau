@@ -95,10 +95,13 @@ end
 -- ========================================
 -- TAB : Main
 -- ========================================
-local MainTab = Window:CreateTab({
-    Title = "Main",
-    Icon = "home"
-})
+local MainTab =
+    Window:Tab(
+    {
+        Title = "General",
+        Icon = "globe"
+    }
+)
 
 -- ========================================
 -- Button : Spawn Rainbow Block (10 times)
